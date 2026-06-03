@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Local Community Event Portal</title>
+
+    <!-- External CSS -->
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+    rel="stylesheet">
+
+    <!-- Internal CSS -->
+
+    <style>
+
+        body{
+            background-color:#f4f4f4;
+        }
+
+    </style>
+
+</head>
+
+<body onbeforeunload="return warningMessage()">
+
+<!-- Header -->
+
+<header>
+
+    <h1>Local Community Event Portal</h1>
+
+</header>
+
+<!-- Navigation -->
+
+<nav>
+
+    <a href="#home">Home</a>
+
+    <a href="#events">Events</a>
+
+    <a href="#contact">Contact</a>
+
+    <a href="help.html" target="_blank">
+
+        Help
+
+    </a>
+
+</nav>
+
+<!-- Home -->
+
+<section id="home">
+
+    <div id="welcomeBanner">
+
+        Welcome User!
+
+        <span id="offerText"
+        style="color:red; font-weight:bold;">
+
+            Special Offer:
+            Get 20% off on your first event registration!
+
+        </span>
+
+    </div>
+
+    <p class="highlight">
+
+        Join our community events
+        and activities.
+
+    </p>
+
+</section>
+
+<!-- Events -->
+
+<section id="events">
+
+    <h2>Past Community Events</h2>
+
+    <table border="1">
+
+        <caption>
+            Community Event Gallery
+        </caption>
+
+        <tr>
+
+            <td>
+
+                <img src="music.jpg"
+                class="gallery-img"
+                alt="Music Event"
+                title="Music Event"
+                ondblclick="enlargeImage(this)">
+
+                <p>Music Festival</p>
+
+            </td>
+
+            <td>
+
+                <img src="sports.jpg"
+                class="gallery-img"
+                alt="Sports Event"
+                title="Sports Event"
+                ondblclick="enlargeImage(this)">
+
+                <p>Sports Meet</p>
+
+            </td>
+
+            <td>
+
+                <img src="food.jpg"
+                class="gallery-img"
+                alt="Food Event"
+                title="Food Event"
+                ondblclick="enlargeImage(this)">
+
+                <p>Food Carnival</p>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+
+                <img src="awarenessProgram.jpg"
+                class="gallery-img"
+                alt="Awareness Program"
+                title="Awareness Program"
+                ondblclick="enlargeImage(this)">
+
+                <p>Awareness Program</p>
+
+            </td>
+
+            <td>
+
+                <img src="cultural.jpg"
+                class="gallery-img"
+                alt="Cultural Event"
+                title="Cultural Event"
+                ondblclick="enlargeImage(this)">
+
+                <p>Cultural Fest</p>
+
+            </td>
+
+            <td>
+
+                <img src="tech.jpg"
+                class="gallery-img"
+                alt="Tech Event"
+                title="Tech Event"
+                ondblclick="enlargeImage(this)">
+
+                <p>Tech Conference</p>
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</section>
+
+<!-- Registration Form -->
+
+<section>
+
+    <h2>Event Registration Form</h2>
+
+    <form onsubmit="showConfirmation(event)">
+
+        <input type="text"
+        placeholder="Enter Name"
+        required
+        autofocus>
+
+        <input type="email"
+        placeholder="Enter Email"
+        required>
+
+        <label>
+            Select Preferred Participation Date
+        </label>
+
+        <input type="date"
+        required>
+
+        <input type="text"
+        id="phone"
+        placeholder="Enter Phone Number"
+        onblur="validatePhone()"
+        required>
+
+        <select id="eventType"
+        onchange="showFee()"
+        required>
+
+            <option value="">
+                Select Event
+            </option>
+
+            <option value="100">
+                Music Event
+            </option>
+
+            <option value="200">
+                Sports Event
+            </option>
+
+            <option value="150">
+                Food Carnival
+            </option>
+
+            <option value="120">
+                Awareness Program
+            </option>
+
+            <option value="180">
+                Cultural Fest
+            </option>
+
+            <option value="300">
+                Tech Conference
+            </option>
+
+        </select>
+
+        <p id="feeDisplay"></p>
+
+        <textarea id="feedback"
+        placeholder="Enter Feedback"
+        onkeyup="countCharacters()"></textarea>
+
+        <p>
+
+            Character Count:
+            <span id="charCount">
+                0
+            </span>
+
+        </p>
+
+        <button type="submit"
+        id="registerBtn">
+
+            Register
+
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Video -->
+
+<section>
+
+    <h2>Event Promo Video</h2>
+
+    <video width="400"
+    controls
+    oncanplay="videoReady()">
+
+        <source src="sample.mp4"
+        type="video/mp4">
+
+    </video>
+
+    <p id="videoMessage"></p>
+
+</section>
+
+<!-- Nearby Events -->
+
+<section>
+
+    <h2>Find Nearby Events</h2>
+
+    <button onclick="findLocation()">
+
+        Find Nearby Events
+
+    </button>
+
+    <p id="location"></p>
+
+    <div id="eventsContainer"></div>
+
+</section>
+
+<!-- User Preferences -->
+
+<section>
+
+    <h2>User Preferences</h2>
+
+    <p>
+
+        Select Preferred Events
+
+    </p>
+
+    <div class="checkbox-group">
+
+        <label>
+
+            <input type="checkbox"
+            value="100"
+            onchange="showPreferenceFee()">
+
+            Music Event - ₹100
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+            value="200"
+            onchange="showPreferenceFee()">
+
+            Sports Event - ₹200
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+            value="150"
+            onchange="showPreferenceFee()">
+
+            Food Carnival - ₹150
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+            value="180"
+            onchange="showPreferenceFee()">
+
+            Cultural Fest - ₹180
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+            value="120"
+            onchange="showPreferenceFee()">
+
+            Awareness Program - ₹120
+
+        </label>
+
+        <label>
+
+            <input type="checkbox"
+            value="300"
+            onchange="showPreferenceFee()">
+
+            Tech Conference - ₹300
+
+        </label>
+
+    </div>
+
+    <br>
+
+    <label>
+
+        <input type="checkbox"
+        id="notifyCheck">
+
+        Receive Event Notifications
+
+    </label>
+
+    <br><br>
+
+    <p id="preferenceFee">
+
+        Total Event Fee: ₹0
+
+    </p>
+
+    <button onclick="savePreference()">
+
+        Save Preference
+
+    </button>
+
+    <button onclick="clearPreferences()">
+
+        Clear Preferences
+
+    </button>
+
+</section>
+
+<!-- Contact -->
+
+<section id="contact">
+
+    <h2>Contact Us</h2>
+
+    <p>Email: community@gmail.com</p>
+
+    <p>Helpline Number: +91 9876543210</p>
+
+    <p>Address: Hyderabad, India</p>
+
+    <p>Support Timing: Monday - Saturday (9:00 AM - 4:00 PM)</p>
+
+</section>
+
+<!-- Community News -->
+
+<section>
+
+    <h2>Community News</h2>
+
+    <div class="news">
+
+        <p>
+
+            Community events are happening every weekend.
+            Residents can participate in sports, music,
+            food festivals, awareness programs, workshops,
+            and entertainment activities across the city.
+            Families and students are encouraged to join
+            and enjoy various community celebrations.
+
+        </p>
+
+        <p>
+
+            The city council encourages local families
+            to attend workshops, cultural activities,
+            sports competitions and awareness campaigns.
+            Special guest speakers and volunteers
+            will also participate in upcoming events
+            to support and guide the community members.
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+    <p>
+
+        © 2026 Community Event Portal
+
+    </p>
+
+</footer>
+
+<!-- Success Popup -->
+
+<div id="successPopup">
+
+    <div class="popup-content">
+
+        <h1>
+
+            Registration Successful ✅
+
+        </h1>
+
+        <p>
+
+            Thank You For Registering!
+
+        </p>
+
+        <output id="formOutput">
+
+            Registration Successful ✅
+
+        </output>
+
+        <br><br>
+
+        <button onclick="closePopup()">
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- Full Screen Image Popup -->
+
+<div id="imagePopup">
+
+    <span id="closeBtn"
+    onclick="closeImage()">
+
+        &times;
+
+    </span>
+
+    <img id="popupImg">
+
+</div>
+
+<!-- External JavaScript -->
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
